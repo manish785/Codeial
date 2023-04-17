@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
-
-
+//use express router middleware
+app.use('/', require('./routes/index'))
 
 
 
