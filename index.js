@@ -3,6 +3,16 @@ const app = express();
 const port = 8080;
 
 //use express router middleware
+app.use(express.static('./assets'));
+
+app.use(expressLayouts);
+
+//extract style and scripts from sub pages into the layout
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
+
+
+//use express router -  middleware
 app.use('/', require('./routes/index'))
 
 
