@@ -6,6 +6,7 @@ const homeController = require('../controllers/home_controller');
 console.log('router loaded');
 
 
+//here in the homeController , we are accessing basically home method
 router.get('/', homeController.home);
 router.use('/users', require('./users'));
 
