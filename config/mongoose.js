@@ -1,16 +1,16 @@
-// const mongoose = require('mongoose');
 
-// console.log('hi')
-// mongoose.connect('mongodb://localhost/codeial_development');
+const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+           // useFindAndModify: false
+        });
+        console.log(`Mongo DB Connected: ${conn.connection.host}`);
+    } catch(err) {
+        console.log(err);
+        process.exit(1);
+    }
+}
 
-// const db = mongoose.connection;
-// console.log(db)
-
-// db.on('error', console.error.bind(console, 'Error connecting to MongoDB'));
-
-// db.once('open', function(){
-//     console.log('mnaish');
-//     console.log('Connected to database: MongoDB');
-// });
-
-// module.exports = db;
+module.exports = connectDB;
