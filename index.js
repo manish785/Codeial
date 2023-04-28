@@ -52,7 +52,9 @@ app.set('views', './views');
 app.use(session({
     name : 'codeial',
     secret : 'blahsomething',
+    //user is not logined , Identity has not established
     saveUninitialized : false,
+    // Identity has been established
     resave : false,
     cookie :{
         maxAge: (1000 * 60 * 60)
