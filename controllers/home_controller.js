@@ -15,7 +15,15 @@ module.exports.home = function(req, res){
     // });
 
     // fetch all the posts of each user
-    Post.find({}).populate('user').exec()
+    Post.find({})
+    .populate('user')
+    .populate({
+        path: 'comments',
+        populate:{
+            path: 'user',
+        }
+    })
+    .exec()
     .then(posts => {
         console.log(posts)
         return res.render('home', {

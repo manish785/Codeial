@@ -64,7 +64,32 @@ module.exports.create = async function(req, res){
       // req.flash("error", err);
       // Handle the error as appropriate
       console.log('error', err);
-    }
+    }    
+}
 
-      
+module.exports.destroy = function(req, res) {
+  Comment.findById(req.params.id)
+  .then(comment => {
+    if(comment.user == req.user.id) {
+      let postId = comment.post;
+      comment.deleteOne()
+        .then(() => {
+          return Post.findByIdAndUpdate(postId, {$pull: {comments: req.params.id}})
+        })
+        .then(() => {
+          return res.redirect('back');
+        })
+        .catch(err => {
+          console.error(err);
+          return res.redirect('back');
+        })
+    } else {
+      return res.redirect('back');
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    return res.redirect('back');
+  })
+
 }
