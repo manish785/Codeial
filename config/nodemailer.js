@@ -9,9 +9,9 @@ let transporter = nodemailer.createTransport({
     port: '587',
     secure: false,
     auth: {
-        user: 'verna.jerde8@ethereal.email',
-        pass: 'HfGButzprZdfkr5KTk'
-    }
+        user: 'kumarachilish1997@gmail.com', // Update with your Gmail address
+        pass: 'lkxdkeooubzrrydb', // Update with the generated application-specific password
+      },
 });
 
 let renderTemplate = (data, relativePath) => {
