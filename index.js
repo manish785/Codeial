@@ -1,7 +1,8 @@
 const express = require('express');
+const env = require('./config/environment');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 8080;
+const port = 80;
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const db = require('./config/mongoose');
@@ -17,11 +18,12 @@ const saasMiddleware = require('node-sass-middleware');
 const dotenv=require('dotenv');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
+const path = require('path');
 
 
 app.use(saasMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
+    src: path.join(__dirname, env.asset_path, 'scss'),
+    dest: path.join(__dirname, env.asset_path, 'css'),
     debug: true,
     outputStyle: 'extended',
     prefix : '/css'
@@ -31,7 +33,7 @@ app.use(saasMiddleware({
 app.use(express.urlencoded());
 app.use(cookieParser());
 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 //connect to database
 dotenv.config();
@@ -56,7 +58,7 @@ app.set('views', './views');
 // mongo store is used to store the session cookie in the db
 app.use(session({
     name : 'codeial',
-    secret : 'blahsomething',
+    secret : env.session_cookie_key,
     //user is not logined , Identity has not established
     saveUninitialized : false,
     // Identity has been established
@@ -65,7 +67,7 @@ app.use(session({
         maxAge: (1000 * 60 * 60)
     },
     store: new MongoStore({
-        mongoUrl: 'mongodb+srv://Admin:jTAea46aNRNp82Ya@cluster0.2jtmimb.mongodb.net/Codeial_Development?retryWrites=true&w=majority',
+        mongoUrl:  'mongodb+srv://Mani_9876:Manish1234@cluster0.2jtmimb.mongodb.net/?retryWrites=true&w=majority',
         mongooseConnection: db,
         autoRemove: 'disabled'
       }, function (err){

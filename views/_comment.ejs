@@ -15,11 +15,11 @@
         <!-- study about the data attribute -->
         <small>
             <% if (locals.user){ %>
-                <a class="toggle-like-button" data-likes="<%= comment.likes %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
-                        <%= comment.likes %> Likes
+                <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                        <%= comment.likes.length %> Likes
                 </a>
             <% }else{ %>
-                <%= comment.likes%> Likes
+                <%= comment.likes.length %> Likes
             <% } %>
         </small>
 
