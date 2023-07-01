@@ -2,7 +2,7 @@ const express = require('express');
 const env = require('./config/environment');
 const cookieParser = require('cookie-parser');
 const app = express();
-const port = 80;
+const port = 8080;
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const db = require('./config/mongoose');
@@ -21,10 +21,18 @@ const customMware = require('./config/middleware');
 const path = require('path');
 
 
+
+// setup the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(500);
+console.log('chat server is listening on port 5000');
+
+
 app.use(saasMiddleware({
     src: path.join(__dirname, env.asset_path, 'scss'),
     dest: path.join(__dirname, env.asset_path, 'css'),
-    debug: true,
+   // debug: true,
     outputStyle: 'extended',
     prefix : '/css'
 }));

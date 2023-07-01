@@ -1,7 +1,7 @@
 
 const development = {
     name : 'development',
-    asset_path: '/assets',
+    asset_path: './assets',
     session_cookie_key: 'blahsomething',
     MONGO_URL : 'mongodb+srv://Admin:jTAea46aNRNp82Ya@cluster0.2jtmimb.mongodb.net/Codeial_Development?retryWrites=true&w=majority',
     smtp: {
