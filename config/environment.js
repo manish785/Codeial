@@ -1,9 +1,22 @@
+const fs = require('fs');
+const rfs = require('rotating-file-stream');
+const path = require('path');
+
+const logDirectory = path.join(__dirname, '../production_logs');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+
+
+// const accessLogStream = rfs('access.log', {
+//     interval : '1d',
+//     path : logDirectory
+// })
+
 
 const development = {
     name : 'development',
     asset_path: './assets',
     session_cookie_key: 'blahsomething',
-    MONGO_URL : 'mongodb+srv://Admin:jTAea46aNRNp82Ya@cluster0.2jtmimb.mongodb.net/Codeial_Development?retryWrites=true&w=majority',
+    MONGO_URL : "mongodb://0.0.0.0/codial1234mani",
     smtp: {
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -18,6 +31,12 @@ const development = {
     google_client_secret: "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",
     google_call_back_url: "http://localhost:8080/users/auth/google/callback",
     jwt_secret: 'codeial',
+    // morgan:{
+    //     mode: 'dev',
+    //     options: {
+    //         stream : accessLogStream
+    //     }
+    // }
 }
 
 
@@ -41,6 +60,12 @@ const production = {
     google_client_secret: process.env.CODEIAL_GOOGLE_CLIENT_SECRET,
     google_call_back_url: process.env.CODEIAL_GOOGLE_CALLBACK_URL,
     jwt_secret: process.env.CODEIAL_JWT_SECRET,
+    // morgan:{
+    //     mode: 'combined',
+    //     options: {
+    //         stream : accessLogStream
+    //     }
+    // }
 }
 
 

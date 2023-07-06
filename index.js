@@ -1,5 +1,6 @@
 const express = require('express');
 const env = require('./config/environment');
+const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8080;
@@ -19,6 +20,7 @@ const dotenv=require('dotenv');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 const path = require('path');
+const environment = require('./config/environment');
 
 
 
@@ -28,14 +30,15 @@ const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(500);
 console.log('chat server is listening on port 5000');
 
-
-app.use(saasMiddleware({
-    src: path.join(__dirname, env.asset_path, 'scss'),
-    dest: path.join(__dirname, env.asset_path, 'css'),
-   // debug: true,
-    outputStyle: 'extended',
-    prefix : '/css'
-}));
+if(env.name == 'development'){
+    app.use(saasMiddleware({
+        src: path.join(__dirname, env.asset_path, 'scss'),
+        dest: path.join(__dirname, env.asset_path, 'css'),
+       // debug: true,
+        outputStyle: 'extended',
+        prefix : '/css'
+    }));
+}
 
 
 app.use(express.urlencoded());
@@ -49,6 +52,8 @@ mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log("DB connection Succesful")).catch((err)=>{
     console.log(err);
 });
+
+//app.use(logger(env.morgon.mode, env.morgon.options));
 
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
